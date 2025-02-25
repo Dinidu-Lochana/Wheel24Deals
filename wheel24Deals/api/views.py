@@ -29,3 +29,26 @@ def get_vehicle(request, pk):
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Vehicle.DoesNotExist:
         return Response({"error": "Vehicle not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['PUT'])
+def update_vehicle(request, pk):
+    try:
+        vehicle = Vehicle.objects.get(id=pk)
+        data = request.data
+        serializer = VehicleSerializer(Vehicle, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    except Vehicle.DoesNotExist:
+        return Response({"error": "Vehicle not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+
+@api_view(['DELETE'])
+def delete_vehicle(request, pk):
+    try:
+        vehicle = Vehicle.objects.get(id=pk)
+        vehicle.delete()
+        return Response( status=status.HTTP_200_OK)
+    except Vehicle.DoesNotExist:
+        return Response({"error": "Vehicle not found"}, status=status.HTTP_404_NOT_FOUND)
+    
