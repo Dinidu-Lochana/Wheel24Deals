@@ -12,5 +12,11 @@ class Vehicle(models.Model):
     price = models.IntegerField(validators=[MinValueValidator(0)])
     description = models.CharField(max_length=200)
 
+    image1 = models.TextField(blank=True, null=True)  
+    image2 = models.TextField(blank=True, null=True)
+    image3 = models.TextField(blank=True, null=True)
+    image4 = models.TextField(blank=True, null=True)
+    image5 = models.TextField(blank=True, null=True)
+
     def __str__(self):
         return self.vehicleName

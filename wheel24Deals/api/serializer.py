@@ -5,3 +5,5 @@ class VehicleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vehicle
         fields = '__all__'  # Include all fields from the Vehicle model
+
+    
