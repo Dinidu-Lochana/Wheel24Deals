@@ -33,14 +33,18 @@ def get_vehicle(request, pk):
 @api_view(['PUT'])
 def update_vehicle(request, pk):
     try:
-        vehicle = Vehicle.objects.get(id=pk)
+        vehicle = Vehicle.objects.get(id=pk)  
         data = request.data
-        serializer = VehicleSerializer(Vehicle, data=data)
+        serializer = VehicleSerializer(vehicle, data=data) 
+
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     except Vehicle.DoesNotExist:
         return Response({"error": "Vehicle not found"}, status=status.HTTP_404_NOT_FOUND)
+
     
 
 @api_view(['DELETE'])
