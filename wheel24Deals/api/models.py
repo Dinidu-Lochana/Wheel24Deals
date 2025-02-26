@@ -12,5 +12,12 @@ class Vehicle(models.Model):
     price = models.IntegerField(validators=[MinValueValidator(0)])
     description = models.CharField(max_length=200)
 
+class User(models.Model):
+    username = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+    password = models.CharField(max_length=30)
+
+    
+
     def __str__(self):
         return self.vehicleName
