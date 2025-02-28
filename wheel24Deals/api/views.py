@@ -56,3 +56,14 @@ def delete_vehicle(request, pk):
     except Vehicle.DoesNotExist:
         return Response({"error": "Vehicle not found"}, status=status.HTTP_404_NOT_FOUND)
     
+@api_view(['GET'])
+def get_vehicle_by_type(request, type):
+    try:
+        vehicles = Vehicle.objects.filter(type=type)  
+        if vehicles.exists():
+            serializer = VehicleSerializer(vehicles, many=True)  
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "No vehicles found for this type"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
